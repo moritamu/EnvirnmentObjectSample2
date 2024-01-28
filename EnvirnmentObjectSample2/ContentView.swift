@@ -8,17 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var fruits: Fruits
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                Text("\(fruits.name) １個 \(fruits.price) 円です。")
+                    .font(.title2)
+                    .padding()
+                Button("50円値上げする。") {
+                    fruits.price += 50
+                }
+                .padding()
+                NavigationLink {
+                    SecondView1()
+                } label: {
+                    Text("ScondViewへ遷移")
+                }
+                .navigationTitle("価格設定")
+                .font(.title)
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(Fruits())
+    
 }
